@@ -1,0 +1,76 @@
+// Problem 3 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
+//
+// Task title: Area fifty won
+// 
+// Soulution by: Robbe Van den Eede
+
+vocabulary V{ 
+    // May need to adapt size of Nb and Area depending on problem instance
+    
+    // Grid
+    type Row = {1..5} isa nat
+    type Col = {1..5} isa nat
+    type Pos constructed from {p(Row,Col)}
+    
+    // Grid content
+    type Nb = {0..9} isa nat // Assume numbers in grid are at most 9.
+    content(Pos) : Nb // content(p) = n says that position p contains number n.
+    
+    // Input grid content
+    cell(Row, Col, Nb) // cell(r,c,n) says that the cell with row r and column c in the grid contains number n.
+    
+    // Grid partitioning
+    type Area = {1..12} // Areas are labeled by numbers. Assume at most 12 positive numbers in grid (one area per positive number).
+    inArea(Pos): Area // inArea(p) = a says that position p is assigned to area a.
+    
+    // Auxiliary predicates:
+    // adjacent(p, q) says that positions p and q are horizontally or vertically adjacent, or equal.
+    adjacent(Pos, Pos)
+    // path(p, q, a) says that p and q are in area a, and that they are connected by a path in a.
+    path(Pos, Pos, Area)
+}
+
+theory T:V{
+    // Channeling constraint
+    ! r, c, n: cell(r,c,n) => content(p(r,c))=n.
+    
+    // Definition of auxiliary predicates
+
+    // Two positions are adjacent if their Manhattan distance is at most one.
+    {
+        ! r1, r2 : ! c1, c2: adjacent(p(r1,c1),p(r2,c2)) <- abs(r1-r2)+abs(c1-c2)=<1.
+    }
+    
+    // The path definition is a restriction of reachability to a specific area.
+    {
+        ! p1, p2, a: path(p1,p2, a) <- adjacent(p1,p2) & inArea(p1) = a & inArea(p2) = a.
+        ! p1, p2, p3, a: path(p1,p3, a) <- adjacent(p1,p2) & path(p2,p3, a) & inArea(p1) = a & inArea(p2) = a & inArea(p3) = a.
+    }
+
+    // Area constraints
+    
+    // Areas are connected
+    ! p1, p2:  inArea(p1)=inArea(p2) => path(p1,p2, inArea(p1)).
+
+    // One positive number per area
+    ! a: #{q : content(q) > 0 & inArea(q) = a} = 1.
+
+    // Areas are of size specified by positive number they contain
+    ! a: ! q: content(q) > 0 & inArea(q) = a => #{r : inArea(r)=a} = content(q).
+}
+
+// Vocabulary serving for loading data
+include "./intro/iclp-cp-2024/problem-3/data-vocabulary.idp"
+
+// Select the instance of the task
+include "./intro/iclp-cp-2024/problem-3/instance01.idp"
+// include "./intro/iclp-cp-2024/problem-3/instance02.idp"
+// include "./intro/iclp-cp-2024/problem-3/instance03.idp"
+// include "./intro/iclp-cp-2024/problem-3/instance04.idp"
+// include "./intro/iclp-cp-2024/problem-3/instance05.idp"
+
+
+procedure main() {
+    stdoptions.nbmodels = 1 // Print 1 model, as there are a lot of symmetric solutions.
+    printmodels(modelexpand(T,S))
+}
