@@ -1,6 +1,6 @@
 // Problem 3 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
 //
-// Task title: rea fifty won
+// Task title: Area fifty won
 // 
 // Soulution by: Robbe Van den Eede
 
@@ -71,6 +71,6 @@ include "instance01.idp"
 
 
 procedure main() {
-	stdoptions.nbmodels = 1 // Print 1 model, as there are a lot of symmetric solutions.
-	printmodels(modelexpand(T,S))
+    stdoptions.nbmodels = 1 // Print 1 model, as there are a lot of symmetric solutions.
+    printmodels(modelexpand(T,S))
 }

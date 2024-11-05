@@ -5,18 +5,18 @@
 // Soulution by: Bart Bogaerts
 
 vocabulary V{
-    type X isa int		// X coordinates
-    type Y isa int		// Y coordinates
-    type Val isa int	// Value
+    type X isa int        // X coordinates
+    type Y isa int        // Y coordinates
+    type Val isa int      // Value
     
-    cell(X,Y,Val)		// Values of the cells
+    cell(X,Y,Val)         // Values of the cells
     
-    pairx(X,Y) : X		// X componenet of pairs
-    pairy(X,Y) : Y		// Y componenet of pairs
+    pairx(X,Y) : X        // X componenet of pairs
+    pairy(X,Y) : Y        // Y componenet of pairs
 }
 
 theory T:V{
-	// Each cell is horisontally/vertically paierd with one neighbour 
+    // Each cell is horisontally/vertically paierd with one neighbour 
     ! x[X] y[Y]: pairx(x,y) = x | pairx(x,y) = x+1 | pairx(x,y) = x-1.
     ! x[X] y[Y]: pairy(x,y) = y | pairy(x,y) = y+1 | pairy(x,y) = y-1.
     // Diagonal cells are not neighbours
@@ -24,7 +24,7 @@ theory T:V{
 
     // Pairing of cells is symetric
     ! x[X] y[Y] x'[X] y'[Y]: pairx(x,y) = x' & pairy(x,y) = y' => pairx(x',y')=x & pairy(x',y') = y.
-	
+    
     // Each pair of values is contained by some pari
     ! val[Val] val'[Val]: ? x y: cell(x,y,val) & cell(pairx(x,y),pairy(x,y),val').
 }
