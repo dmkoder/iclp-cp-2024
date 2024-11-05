@@ -1,0 +1,45 @@
+// Problem 3 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
+//
+// Task title: Tile-them-all
+// 
+// Soulution by: Bart Bogaerts
+
+vocabulary V{
+    type X isa int		// X coordinates
+    type Y isa int		// Y coordinates
+    type Val isa int	// Value
+    
+    cell(X,Y,Val)		// Values of the cells
+    
+    pairx(X,Y) : X		// X componenet of pairs
+    pairy(X,Y) : Y		// Y componenet of pairs
+}
+
+theory T:V{
+	// Each cell is horisontally/vertically paierd with one neighbour 
+    ! x[X] y[Y]: pairx(x,y) = x | pairx(x,y) = x+1 | pairx(x,y) = x-1.
+    ! x[X] y[Y]: pairy(x,y) = y | pairy(x,y) = y+1 | pairy(x,y) = y-1.
+    // Diagonal cells are not neighbours
+    ! x[X] y[Y]: pairx(x,y) ~= x => pairy(x,y) = y.
+
+    // Pairing of cells is symetric
+    ! x[X] y[Y] x'[X] y'[Y]: pairx(x,y) = x' & pairy(x,y) = y' => pairx(x',y')=x & pairy(x',y') = y.
+	
+    // Each pair of values is contained by some pari
+    ! val[Val] val'[Val]: ? x y: cell(x,y,val) & cell(pairx(x,y),pairy(x,y),val').
+}
+
+// Vocabulary serving for loading data
+include "data-vocabulary.idp"
+
+// Select the instance of the task
+include "instance01.idp"
+// include "instance02.idp"
+// include "instance03.idp"
+// include "instance04.idp"
+// include "instance05.idp"
+
+procedure main(){
+    S = onemodel(T,S)
+    print(S)
+}

@@ -1,0 +1,12 @@
+vocabulary V2{
+    extern V::Gate/1
+    extern V::Var/1
+    extern V::variable/1
+    extern V::result/1
+    extern V::unary/1
+    extern V::binary/1
+    extern V::input/3
+    extern V::output/2
+    extern V::entry/3
+    extern V::value/3
+}

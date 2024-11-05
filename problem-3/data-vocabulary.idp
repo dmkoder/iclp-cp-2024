@@ -1,0 +1,3 @@
+vocabulary V2{ 
+    extern V::cell/3
+}

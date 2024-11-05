@@ -1,0 +1,117 @@
+// Problem 3 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
+//
+// Task title: Area fifty won
+// 
+// Soulution by: Djordje Markovic
+
+vocabulary V{
+    // Types
+	type Gate					// Gates
+	type Var					// Variables
+    type It = {1..4} isa nat	// Iteration
+    type N = {0;1} isa nat		// Possible values for gates
+    type Slot = {1;2} isa nat	// Slot of a gate
+    
+    // Standard logic operators
+    neg(N): N
+    and(N,N): N
+    or(N,N): N
+    
+    // The circuit description
+    variable(Var)
+    result(Var)
+    
+    unary(Gate)
+    binary(Gate)
+
+    input(Gate, Slot, Var)
+	output(Gate, Var)	
+    
+    entry(It, Var, N)			// Given entries
+    value(It, Var, N)			// Given values
+    
+    
+    cValue(It, Var, N)			// Value of each gate per iteration (c stands for computed)
+    
+    function(Gate) : N			// Functionality of the gate	
+}
+
+theory T:V{
+	
+    // Definition of Gate operations
+    {
+    	neg(0) = 1.
+	    neg(1) = 0.
+  
+        and(0,0) = 0.
+        and(0,1) = 0.
+        and(1,0) = 0.
+        and(1,1) = 1.
+        
+        ! x[N], y[N] : or(x,y) = neg(and(neg(x),neg(y))).
+    }
+    
+    
+    // Definition of a cValue of a variable
+    {
+       ! i[It], v[Var], x[N]: cValue(i, v, x) <- entry(i, v, x) | value(i, v, x).
+        
+       // Identity gate
+       ! i[It], v[Var], x[N]: cValue(i, v, x) <- 
+        	? g[Gate] v2[Var] : unary(g) & output(g, v) & input(g, 1, v2) & 
+        	function(g) = 0 & cValue(i, v2, x).
+        
+       // Negation gate
+       ! i[It], v[Var], x[N]: cValue(i, v, x) <- 
+        	? g[Gate] v2[Var] : output(g, v) & input(g, 1, v2) & unary(g) & 
+        	function(g) = 1 & cValue(i, v2, neg(x)).
+        
+       // And gate
+       ! i[It], v[Var], x[N]: cValue(i, v, x) <- 
+        	? g[Gate] v2[Var] v3[Var] y2[N], y3[N]: binary(g) & output(g, v) & 
+        	input(g, 1, v2) & input(g, 2, v3) & function(g) = 0 & 
+        	cValue(i, v2, y2) & cValue(i, v3, y3) & and(y2,y3) = x.
+        
+       // Or gate
+       ! i[It], v[Var], x[N]: cValue(i, v, x) <- 
+        	? g[Gate] v2[Var] v3[Var] y2[N], y3[N]: binary(g) & output(g, v) & 
+        	input(g, 1, v2) & input(g, 2, v3) & function(g) = 1 & 
+        	cValue(i, v2, y2) & cValue(i, v3, y3) & or(y2,y3) = x.
+    }
+    
+    // Additional axioms (Value is a total funcition)
+    ! i[It], v[Var]: ? y[N]: cValue(i, v, y).
+    ! i[It], v[Var], x[N], y[N]: cValue(i, v, x) & cValue(i, v, y) => x = y.
+}
+
+// Vocabulary serving for loading data
+include "data-vocabulary.idp"
+
+// Select the instance of the task
+include "instance01.idp"
+// include "instance02.idp"
+// include "instance03.idp"
+// include "instance04.idp"
+// include "instance05.idp"
+
+
+procedure main(){
+	// Number of models
+    stdoptions.nbmodels = 2
+    // Find and print models
+	printmodels(modelexpand(T,S))
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
