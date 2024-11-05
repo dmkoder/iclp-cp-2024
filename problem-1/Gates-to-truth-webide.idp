@@ -88,14 +88,14 @@ theory T:V{
 }
 
 // Vocabulary serving for loading data
-include "./intro/iclp-cp-2024/problem-1/data-vocabulary.idp"
+include "./scienceweek/iclp-cp-2024/problem-1/data-vocabulary.idp"
 
 // Select the instance of the task
-include "./intro/iclp-cp-2024/problem-1/instance01.idp"
-// include "./intro/iclp-cp-2024/problem-1/instance02.idp"
-// include "./intro/iclp-cp-2024/problem-1/instance03.idp"
-// include "./intro/iclp-cp-2024/problem-1/instance04.idp"
-// include "./intro/iclp-cp-2024/problem-1/instance05.idp"
+include "./scienceweek/iclp-cp-2024/problem-1/instance01.idp"
+// include "./scienceweek/iclp-cp-2024/problem-1/instance02.idp"
+// include "./scienceweek/iclp-cp-2024/problem-1/instance03.idp"
+// include "./scienceweek/iclp-cp-2024/problem-1/instance04.idp"
+// include "./scienceweek/iclp-cp-2024/problem-1/instance05.idp"
 
 
 procedure main(){
