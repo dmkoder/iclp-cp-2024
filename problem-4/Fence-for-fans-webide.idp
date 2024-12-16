@@ -79,14 +79,14 @@ theory T : V {
 
 
 // Vocabulary serving for loading data
-include "data-vocabulary.idp"
+include "./scienceweek/iclp-cp-2024/problem-4/data-vocabulary.idp"
 
 // Select the instance of the task
-include "instance01.idp"
-// include "instance02.idp"
-// include "instance03.idp"
-// include "instance04.idp"
-// include "instance05.idp"
+include "./scienceweek/iclp-cp-2024/problem-4/instance01.idp"
+// include "./scienceweek/iclp-cp-2024/problem-4/instance02.idp"
+// include "./scienceweek/iclp-cp-2024/problem-4/instance03.idp"
+// include "./scienceweek/iclp-cp-2024/problem-4/instance04.idp"
+// include "./scienceweek/iclp-cp-2024/problem-4/instance05.idp"
 
 
 // Term to be optimized

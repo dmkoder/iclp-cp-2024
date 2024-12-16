@@ -1,0 +1,11 @@
+vocabulary V2{
+    extern V::Row/1
+    extern V::Col/1
+    extern V::Val/1
+    extern V::width/1
+    extern V::height/1
+    extern V::cost/3
+    extern V::reward/3
+	extern V::length/1
+    extern V::budget/1
+}
