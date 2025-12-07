@@ -1,7 +1,5 @@
 % Problem 4 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
-
 % Task title: Fence for fans
- 
 % Soulution by: Martin Gebser
 
 #const inner = 0.

@@ -1,3 +1,7 @@
+// Problem 4 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
+// Task title: Fence for fans 
+// Soulution by: Djordje Markovic
+
 vocabulary V {
 
     type Row = { 1..9 } isa nat

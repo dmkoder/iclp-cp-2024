@@ -1,7 +1,5 @@
 % Problem 3 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
-
 % Task title: Area fifty won
- 
 % Soulution by: Martin Gebser
 
 diff(0,1;0,-1;1,0;-1,0).

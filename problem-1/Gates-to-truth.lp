@@ -1,7 +1,5 @@
 % Problem 1 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
-
 % Task title: Gates to truth
- 
 % Soulution by: Martin Gebser
 
 gate(G) :- unary(G).
