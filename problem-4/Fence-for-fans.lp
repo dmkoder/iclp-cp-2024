@@ -1,6 +1,6 @@
 % Problem 4 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
 % Task title: Fence for fans
-% Soulution by: Martin Gebser
+% Solution by: Martin Gebser
 
 #const inner = 0.
 #const point = 1.
@@ -9,13 +9,19 @@ diff(0,1;0,-1;1,0;-1,0).
 
 empty :- length(L), L < 4. % can be skipped if using budget only
 
+% Exclude the cells with negative reward and cost bigger than the budget
 guess(X,Y,C) :- reward(X,Y,R), cost(X,Y,C), budget(B), 0 <= R, C <= B, not empty.
 
+% Fences can be chosen from the guess predicate
 {fence(X,Y)} :- guess(X,Y,C).
+% The length of the fence can not exceed the max length
 :- length(L), #count{X,Y : fence(X,Y)} > L. % can be skipped if using budget only
+% Sum of the costs of the fences can not exceed the budget
 :- budget(B), #sum+{C,X,Y : fence(X,Y), cost(X,Y,C)} > B.
 
+% Two cells are connected if they are in the fence and neighbours
 connect(X1,Y1,X2,Y2) :- guess(X1,Y1,C), fence(X2,Y2), diff(X,Y), X2 = X1+X, Y2 = Y1+Y.
+% Each cell in the fence is connected to exactly two other cells
 :- fence(X1,Y1), #count{X2,Y2 : connect(X1,Y1,X2,Y2)} != 2.
 
 score(X,Y,C)   :- guess(X,Y,C), C != 0, not reward(X,Y,_).

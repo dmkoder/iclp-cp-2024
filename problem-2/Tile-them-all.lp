@@ -1,6 +1,6 @@
 % Problem 2 from the ICLP 2024 Programming Contest, organized by Prof. Martin Gebser
 % Task title: Tile-them-all
-% Soulution by: Martin Gebser
+% Solution by: Martin Gebser
 
 #const n=3.
 
