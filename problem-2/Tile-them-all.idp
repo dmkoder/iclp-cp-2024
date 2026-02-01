@@ -20,7 +20,7 @@ theory T:V{
     // Diagonal cells are not neighbours
     ! x[X] y[Y]: pairx(x,y) ~= x => pairy(x,y) = y.
 
-    // Pairing of cells is symetric
+    // Pairing of cells is symmetric
     ! x[X] y[Y] x'[X] y'[Y]: pairx(x,y) = x' & pairy(x,y) = y' => pairx(x',y')=x & pairy(x',y') = y.
     
     // Each pair of values is contained by some pari
